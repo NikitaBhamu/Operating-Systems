@@ -1,5 +1,7 @@
 # OperatingSystems
 
-## AddingSyscall_inLinux
+## Adding Syscall in Linux :
 
-## PrintingPrime_Parallel
+## Printing Prime using Parallel Programming :
+
+## Page Replacement Algorithms :
