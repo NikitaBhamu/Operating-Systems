@@ -1,0 +1,38 @@
+diff -ur linux_old/Makefile linux_updated/Makefile
+--- linux_old/Makefile	2020-08-11 19:18:12.000000000 +0530
++++ linux_updated/Makefile	2021-02-17 19:46:18.088860401 +0530
+@@ -1070,7 +1070,7 @@
+ export MODULES_NSDEPS := $(extmod-prefix)modules.nsdeps
+
+ ifeq ($(KBUILD_EXTMOD),)
+-core-y		+= kernel/ certs/ mm/ fs/ ipc/ security/ crypto/ block/
++core-y		+= kernel/ certs/ mm/ fs/ ipc/ security/ crypto/ block/ mySyscall/
+
+ vmlinux-dirs	:= $(patsubst %/,%,$(filter %/, \
+ 		     $(core-y) $(core-m) $(drivers-y) $(drivers-m) \
+diff -ur linux_old/arch/x86/entry/syscalls/syscall_64.tbl linux_updated/arch/x86/entry/syscalls/syscall_64.tbl
+--- linux_old/arch/x86/entry/syscalls/syscall_64.tbl	2020-08-11 19:18:12.000000000 +0530
++++ linux_updated/arch/x86/entry/syscalls/syscall_64.tbl	2021-02-17 20:00:28.604195579 +0530
+@@ -403,3 +403,4 @@
+ 545	x32	execveat		compat_sys_execveat
+ 546	x32	preadv2			compat_sys_preadv64v2
+ 547	x32	pwritev2		compat_sys_pwritev64v2
++548	64	mySyscall		sys_mySyscall
+Only in linux_updated/certs: signing_key.pem
+Only in linux_updated/certs: signing_key.x509
+Only in linux_updated/certs: x509.genkey
+diff -ur linux_old/include/linux/syscalls.h linux_updated/include/linux/syscalls.h
+--- linux_old/include/linux/syscalls.h	2020-08-11 19:18:12.000000000 +0530
++++ linux_updated/include/linux/syscalls.h	2021-02-17 19:57:49.254240892 +0530
+@@ -286,6 +286,7 @@
+  * include the prototypes if CONFIG_ARCH_HAS_SYSCALL_WRAPPER is enabled.
+  */
+ #ifndef CONFIG_ARCH_HAS_SYSCALL_WRAPPER
++asmlinkage long sys_mySyscall()
+ asmlinkage long sys_io_setup(unsigned nr_reqs, aio_context_t __user *ctx);
+ asmlinkage long sys_io_destroy(aio_context_t ctx);
+ asmlinkage long sys_io_submit(aio_context_t, long,
+Only in linux_updated: mySyscall
+Only in linux_updated/tools/objtool/arch/x86: lib
+Only in linux_updated/tools/objtool: fixdep
+Only in linux_updated/tools/objtool: objtool
